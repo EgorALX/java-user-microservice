@@ -41,24 +41,23 @@ public class UserController {
         return users;
     }
 
-    @GetMapping("/{user_id}")
+    @GetMapping("/{userId}")
     public UserDto getById(@PathVariable @Positive Integer userId) {
         log.info("Starting getById method. Getting user by userId={} ", userId);
         UserDto user = userService.getById(userId);
         log.info("Completed getById method successfully. Result: {}", user);
         return user;
-
     }
 
     @PostMapping
-    public UserDto add(@RequestBody @Valid NewUserDto dto) {
+    public UserDto add(@Valid @RequestBody NewUserDto dto) {
         log.info("Starting add method. Creating user: {} ", dto.toString());
         UserDto user = userService.add(dto);
         log.info("Completed add method successfully. Result: {}", user);
         return user;
     }
 
-    @PatchMapping("/{user_id}")
+    @PatchMapping("/{userId}")
     public UpdateUserDto update(@PathVariable @Positive Integer userId,
                                 @RequestBody @Valid UpdateUserDto dto) {
         log.info("Starting update method. Updating userId={} ", userId);
@@ -67,7 +66,7 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> removeById(@PathVariable @Positive Integer userId) {
         log.info("Starting removeById method. removing userId={} ", userId);
