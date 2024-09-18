@@ -35,7 +35,7 @@ public class UserController {
                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate) {
         log.info("Starting getUsers method. Getting users with params: page={}, size={}, name={}, surname={}, registration_date={}",
                 page, size, name, surname, registrationDate);
-        PageRequest pageRequest = PageRequest.of(page, size);
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
         List<UserDto> users = userService.getUsers(name, surname, registrationDate, pageRequest);
         log.info("Completed getUsers method successfully. Results: {}", users);
         return users;
@@ -68,10 +68,9 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> removeById(@PathVariable @Positive Integer userId) {
+    public void removeById(@PathVariable @Positive Integer userId) {
         log.info("Starting removeById method. removing userId={} ", userId);
         userService.removeById(userId);
         log.info("Completed removeById method successfully");
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User successfully deleted");
     }
 }

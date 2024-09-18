@@ -14,7 +14,7 @@ public class UserMapper {
     }
 
     public User toUser(NewUserDto dto) {
-        return new User(0, dto.getName(), dto.getSurname(), dto.getRegistration_date());
+        return new User(0, dto.getName(), dto.getSurname(), dto.getRegistrationDate());
     }
 
     public UpdateUserDto toUpdateDto(User user) {

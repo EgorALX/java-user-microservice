@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
         if (dto.getSurname() != null) {
             user.setSurname(dto.getSurname());
         }
-        if (dto.getRegistration_date() != null) {
-            user.setRegistrationDate(dto.getRegistration_date());
+        if (dto.getRegistrationDate() != null) {
+            user.setRegistrationDate(dto.getRegistrationDate());
         }
         return userMapper.toUpdateDto(user);
     }

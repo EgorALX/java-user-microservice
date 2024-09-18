@@ -1,6 +1,7 @@
 package ru.users.userservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class UpdateUserDto {
 
     private String surname;
 
-    @JsonFormat(pattern = "YYYY-MM-DD")
-    private LocalDate registration_date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonProperty("registration_date")
+    private LocalDate registrationDate;
 }

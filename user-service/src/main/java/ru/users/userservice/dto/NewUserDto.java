@@ -1,6 +1,7 @@
 package ru.users.userservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,6 @@ public class NewUserDto {
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate registration_date;
+    @JsonProperty("registration_date")
+    private LocalDate registrationDate;
 }
