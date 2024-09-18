@@ -39,8 +39,6 @@ public class UserControllerTest {
 
     private final UserDto userDto = new UserDto(1, "Ivan", "Ivanov",
             LocalDate.of(2020, 1, 1));
-    private final UserDto userSecondDto = new UserDto(2, "Van", "Vanov",
-            LocalDate.of(2012, 2, 14));
 
     private final NewUserDto newUserDto = new NewUserDto("Ivan", "Ivanov",
             LocalDate.of(2020, 1, 1));

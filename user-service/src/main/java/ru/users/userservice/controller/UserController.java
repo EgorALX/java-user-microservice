@@ -1,7 +1,6 @@
 package ru.users.userservice.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import ru.users.userservice.dto.NewUserDto;
 import ru.users.userservice.dto.UpdateUserDto;
 import ru.users.userservice.dto.UserDto;
