@@ -1,6 +1,7 @@
 package ru.users.userservice.exception.controller;
 
 import jakarta.validation.ValidationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.users.userservice.exception.model.ApiError;
 import ru.users.userservice.exception.model.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,13 @@ public class ErrorHandler {
     public ApiError handleNotFoundException(final NotFoundException exception) {
         log.info("Data not found {}", exception.getMessage());
         return new ApiError(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiError handleMethodArgumentNotValidException(final MethodArgumentNotValidException exception) {
+        log.info(exception.getMessage());
+        return new ApiError(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
