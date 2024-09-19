@@ -22,9 +22,6 @@ public class UserRepositoryTest {
 
     @Test
     public void getUsersByParamsTest() {
-        User user1 = new User(1, "John", "Doe", LocalDate.of(1990, 1, 1));
-        User user2 = new User(2, "Jane", "Smith", LocalDate.of(1985, 6, 15));
-        User user3 = new User(3, "Alice", "Johnson", LocalDate.of(1970, 12, 31));
 
         userRepository.saveAll(List.of(user1, user2, user3));
 
