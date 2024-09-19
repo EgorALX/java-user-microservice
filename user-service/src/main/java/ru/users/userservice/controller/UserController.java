@@ -1,5 +1,6 @@
 package ru.users.userservice.controller;
 
+import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
 import ru.users.userservice.dto.NewUserDto;
 import ru.users.userservice.dto.UpdateUserDto;
@@ -29,8 +30,8 @@ public class UserController {
     @GetMapping
     public List<UserDto> getUsers(@RequestParam(required = false, defaultValue = "1") Integer page,
                                   @RequestParam(required = false, defaultValue = "10") Integer size,
-                                  @RequestParam(required = false) String name,
-                                  @RequestParam(required = false) String surname,
+                                  @RequestParam(required = false) @Size(max = 256, message = "Name cannot exceed 256 characters") String name,
+                                  @RequestParam(required = false) @Size(max = 256, message = "Surname cannot exceed 256 characters")String surname,
                                   @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate registrationDate) {
         log.info("Starting getUsers method. Getting users with params: page={}, size={}, name={}, surname={}, registration_date={}",
                 page, size, name, surname, registrationDate);
