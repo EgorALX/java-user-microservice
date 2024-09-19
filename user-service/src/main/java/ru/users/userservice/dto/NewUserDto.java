@@ -18,14 +18,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class NewUserDto {
 
-    @NotNull
-    @Size(max = 256)
     @NotBlank
+    @Size(max = 256)
     private String name;
 
-    @NotNull
-    @Size(max = 256)
     @NotBlank
+    @Size(max = 256)
     private String surname;
 
     @NotNull

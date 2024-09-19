@@ -23,25 +23,29 @@ public class UserRepositoryTest {
     @Test
     public void getUsersByParamsTest() {
 
-        userRepository.saveAll(List.of(user1, user2, user3));
+        User firstUser = new User(1, "Ivan", "Ivanov", LocalDate.of(2023, 1, 1));
+        User secondUser = new User(2, "Ivan2", "Ivanov2", LocalDate.of(2020, 1, 1));
+        User thirdUser = new User(3, "Ivan3", "Ivanov3", LocalDate.of(2024, 1, 1));
+
+        userRepository.saveAll(List.of(firstUser, secondUser, thirdUser));
 
         Pageable pageable = PageRequest.of(0, 10);
 
-        List<User> result = userRepository.getUsersByParams("John", null, LocalDate.of(1990, 1, 1), pageable);
+        List<User> result = userRepository.getUsersByParams("Ivan", null, LocalDate.of(2023, 1, 1), pageable);
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(user1.getName(), result.get(0).getName());
-        assertEquals(user1.getSurname(), result.get(0).getSurname());
-        assertEquals(user1.getRegistrationDate(), result.get(0).getRegistrationDate());
+        assertEquals(firstUser.getName(), result.get(0).getName());
+        assertEquals(firstUser.getSurname(), result.get(0).getSurname());
+        assertEquals(firstUser.getRegistrationDate(), result.get(0).getRegistrationDate());
 
-        List<User> resultWithSurname = userRepository.getUsersByParams(null, "Smith", null, pageable);
+        List<User> resultWithSurname = userRepository.getUsersByParams(null, "Ivanov2", null, pageable);
 
         assertNotNull(resultWithSurname);
         assertEquals(1, resultWithSurname.size());
-        assertEquals(user2.getName(), resultWithSurname.get(0).getName());
-        assertEquals(user2.getSurname(), resultWithSurname.get(0).getSurname());
-        assertEquals(user2.getRegistrationDate(), resultWithSurname.get(0).getRegistrationDate());
+        assertEquals(secondUser.getName(), resultWithSurname.get(0).getName());
+        assertEquals(secondUser.getSurname(), resultWithSurname.get(0).getSurname());
+        assertEquals(secondUser.getRegistrationDate(), resultWithSurname.get(0).getRegistrationDate());
 
         List<User> resultWithNullParams = userRepository.getUsersByParams(null, null, null, pageable);
 
