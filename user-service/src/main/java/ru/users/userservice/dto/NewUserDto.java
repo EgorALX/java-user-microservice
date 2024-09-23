@@ -17,14 +17,14 @@ import java.time.LocalDate;
 public class NewUserDto {
 
     @NotBlank
-    @Size(max = 256)
+    @Size(max = 256, message = "Invalid request format")
     private String name;
 
     @NotBlank
-    @Size(max = 256)
+    @Size(max = 256, message = "Invalid request format")
     private String surname;
 
-    @NotNull
+    @NotNull(message = "Invalid request format")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonProperty("registration_date")
     private LocalDate registrationDate;

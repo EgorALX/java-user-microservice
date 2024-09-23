@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UpdateUserDto {
 
-    @Size(max = 256)
+    @Size(max = 256, message = "Invalid request format")
     private String name;
 
-    @Size(max = 256)
+    @Size(max = 256, message = "Invalid request format")
     private String surname;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
