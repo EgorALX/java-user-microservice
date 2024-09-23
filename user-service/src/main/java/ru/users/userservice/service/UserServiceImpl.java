@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getUsers(String name, String surname, LocalDate registrationDate, PageRequest pageRequest) {
         List<User> users = userRepository.getUsersByParams(name,
                 surname, registrationDate, pageRequest);
+        if (users.isEmpty()) throw new NotFoundException("List of users is empty");
         return users.stream().map(userMapper::toUserDto).collect(Collectors.toList());
     }
 

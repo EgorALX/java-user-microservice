@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import ru.users.userservice.UserServiceApplication;
 import ru.users.userservice.dto.NewUserDto;
 import ru.users.userservice.dto.UpdateUserDto;
 import ru.users.userservice.dto.UserDto;
@@ -29,9 +29,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Transactional
 @RequiredArgsConstructor
-@SpringBootTest(classes = UserServiceApplication.class)
+@SpringBootTest
+@AutoConfigureTestDatabase
 public class UserServiceTest {
 
     @Mock
