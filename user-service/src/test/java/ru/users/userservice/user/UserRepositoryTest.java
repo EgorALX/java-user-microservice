@@ -23,15 +23,19 @@ public class UserRepositoryTest {
     @Test
     public void getUsersByParamsTest() {
 
-        User firstUser = new User(1, "Ivan", "Ivanov", LocalDate.of(2023, 1, 1));
-        User secondUser = new User(2, "Ivan2", "Ivanov2", LocalDate.of(2020, 1, 1));
-        User thirdUser = new User(3, "Ivan3", "Ivanov3", LocalDate.of(2024, 1, 1));
+        User firstUser = new User(1, "Ivan", "Ivanov",
+                LocalDate.of(2023, 1, 1));
+        User secondUser = new User(2, "Ivan2", "Ivanov2",
+                LocalDate.of(2020, 1, 1));
+        User thirdUser = new User(3, "Ivan3", "Ivanov3",
+                LocalDate.of(2024, 1, 1));
 
         userRepository.saveAll(List.of(firstUser, secondUser, thirdUser));
 
         Pageable pageable = PageRequest.of(0, 10);
 
-        List<User> result = userRepository.getUsersByParams("Ivan", null, LocalDate.of(2023, 1, 1), pageable);
+        List<User> result = userRepository.getUsersByParams("Ivan", null,
+                LocalDate.of(2023, 1, 1), pageable);
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -39,7 +43,8 @@ public class UserRepositoryTest {
         assertEquals(firstUser.getSurname(), result.get(0).getSurname());
         assertEquals(firstUser.getRegistrationDate(), result.get(0).getRegistrationDate());
 
-        List<User> resultWithSurname = userRepository.getUsersByParams(null, "Ivanov2", null, pageable);
+        List<User> resultWithSurname = userRepository.getUsersByParams(null, "Ivanov2",
+                null, pageable);
 
         assertNotNull(resultWithSurname);
         assertEquals(1, resultWithSurname.size());
@@ -47,7 +52,8 @@ public class UserRepositoryTest {
         assertEquals(secondUser.getSurname(), resultWithSurname.get(0).getSurname());
         assertEquals(secondUser.getRegistrationDate(), resultWithSurname.get(0).getRegistrationDate());
 
-        List<User> resultWithNullParams = userRepository.getUsersByParams(null, null, null, pageable);
+        List<User> resultWithNullParams = userRepository.getUsersByParams(null, null,
+                null, pageable);
 
         assertNotNull(resultWithNullParams);
         assertEquals(3, resultWithNullParams.size());

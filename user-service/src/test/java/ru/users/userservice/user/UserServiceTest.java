@@ -60,8 +60,8 @@ public class UserServiceTest {
 
     @Test
     void getUsersTest() {
-        when(userRepository.getUsersByParams(any(String.class), any(String.class), any(LocalDate.class), any(PageRequest.class)))
-                .thenReturn(users);
+        when(userRepository.getUsersByParams(any(String.class), any(String.class), any(LocalDate.class),
+                any(PageRequest.class))).thenReturn(users);
         when(userMapper.toUserDto(any(User.class))).thenReturn(userDto);
 
         List<UserDto> result = userService.getUsers("Ivan", "Ivanov",

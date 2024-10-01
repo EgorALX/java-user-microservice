@@ -74,7 +74,8 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name", is(updateUserDto.getName())))
                 .andExpect(jsonPath("$.surname", is(updateUserDto.getSurname())))
-                .andExpect(jsonPath("$.registration_date", is(updateUserDto.getRegistrationDate().toString())));
+                .andExpect(jsonPath("$.registration_date",
+                        is(updateUserDto.getRegistrationDate().toString())));
     }
 
     @Test
