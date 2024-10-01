@@ -1,4 +1,4 @@
-package ru.users.userservice.exception.model;
+package ru.users.userservice.controller.exception.model;
 
 public class NotFoundException extends RuntimeException {
 

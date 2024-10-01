@@ -19,5 +19,5 @@ public interface UserService {
 
     UpdateUserDto update(@Positive Integer userId, @Valid UpdateUserDto dto);
 
-    void removeById(@Positive Integer userId);
+    Boolean removeById(@Positive Integer userId);
 }

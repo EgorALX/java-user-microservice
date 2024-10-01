@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import ru.users.userservice.dto.NewUserDto;
 import ru.users.userservice.dto.ParamsUserDto;
 import ru.users.userservice.dto.UpdateUserDto;
@@ -76,9 +77,11 @@ public class UserController {
             summary = "Удаление информации о конкретном пользователе по ID",
             description = "Параметры: user_id (Integer) – Идентификатор пользователя"
     )
-    public void removeById(@PathVariable @Positive Integer userId) {
+    public ResponseEntity<Void> removeById(@PathVariable @Positive Integer userId) {
         log.info("Starting removeById method. removing userId={}", userId);
-        userService.removeById(userId);
+        boolean isRemoved = userService.removeById(userId);
+        if (!isRemoved) return ResponseEntity.noContent().build();
         log.info("Completed removeById method successfully");
+        return ResponseEntity.ok().build();
     }
 }

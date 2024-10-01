@@ -12,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import ru.users.userservice.dto.NewUserDto;
 import ru.users.userservice.dto.UpdateUserDto;
 import ru.users.userservice.dto.UserDto;
-import ru.users.userservice.exception.model.NotFoundException;
+import ru.users.userservice.controller.exception.model.NotFoundException;
 import ru.users.userservice.mapper.UserMapper;
 import ru.users.userservice.model.User;
 import ru.users.userservice.repository.UserRepository;
