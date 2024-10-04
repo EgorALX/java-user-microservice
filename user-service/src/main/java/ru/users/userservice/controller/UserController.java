@@ -56,7 +56,6 @@ public class UserController implements UsersApi {
         return ResponseEntity.ok(user);
     }
 
-
     @Override
     @GetMapping
     public ResponseEntity<List<UserDto>> getUsers(@ParameterObject ParamsUserDto queryParams) {

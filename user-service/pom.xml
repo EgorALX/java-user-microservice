@@ -158,9 +158,16 @@
 							<modelPackage>ru.users.userservice.model</modelPackage>
 							<configOptions>
 								<useJakartaEe>true</useJakartaEe>
-								<delegatePattern>true</delegatePattern>
+								<generateModelDocumentation>true</generateModelDocumentation>
+								<generateApiDocumentation>false</generateApiDocumentation>
 								<interfaceOnly>true</interfaceOnly>
+								<notices>true</notices>
+								<skipValidation>false</skipValidation>
+								<typeMapping>java.lang.String:java.lang.String</typeMapping>
 							</configOptions>
+							<additionalProperties>
+								<validateModels>true</validateModels>
+							</additionalProperties>
 						</configuration>
 					</execution>
 				</executions>

@@ -99,6 +99,8 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/UpdateUserDto'
+        '400':
+          description: Bad request
         '404':
           description: Not found
     delete:
