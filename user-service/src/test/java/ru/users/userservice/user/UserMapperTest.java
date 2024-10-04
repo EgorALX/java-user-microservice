@@ -1,42 +1,43 @@
 package ru.users.userservice.user;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.users.userservice.dto.NewUserDto;
-import ru.users.userservice.dto.UpdateUserDto;
-import ru.users.userservice.dto.UserDto;
+import ru.users.userservice.model.NewUserDto;
+import ru.users.userservice.model.UpdateUserDto;
+import ru.users.userservice.model.UserDto;
 import ru.users.userservice.mapper.UserMapper;
 import ru.users.userservice.model.User;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class UserMapperTest {
+class UserMapperTest {
 
-    @InjectMocks
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
+    @BeforeEach
+    void setUp() {
+        mapper = Mappers.getMapper(UserMapper.class);
+    }
 
     @Test
     void toUserDtoTest() {
-        User user = new User(1, "Ivan", "Ivanov", LocalDate.of(2023, 1, 1));
-        UserDto userDto1 = userMapper.toUserDto(user);
+        User user = new User(1L, "Ivan", "Ivanov", java.time.LocalDate.now());
+        UserDto userDto = mapper.toUserDto(user);
 
-        assertEquals(user.getId(), userDto1.getId());
-        assertEquals(user.getName(), userDto1.getName());
-        assertEquals(user.getSurname(), userDto1.getSurname());
-        assertEquals(user.getRegistrationDate(), userDto1.getRegistrationDate());
+        assertEquals(user.getId(), userDto.getId());
+        assertEquals(user.getName(), userDto.getName());
+        assertEquals(user.getSurname(), userDto.getSurname());
+        assertEquals(user.getRegistrationDate(), userDto.getRegistrationDate());
     }
 
     @Test
     void toNewUserTest() {
-        NewUserDto userDto = new NewUserDto("Ivan", "Ivanov",
-                LocalDate.of(2023, 1, 1));
-        User user = userMapper.toUser(userDto);
+        NewUserDto userDto = new NewUserDto("Ivan", "Ivanov", java.time.LocalDate.now());
+        User user = mapper.toUser(userDto);
 
         assertEquals(userDto.getName(), user.getName());
         assertEquals(userDto.getSurname(), user.getSurname());
@@ -45,8 +46,8 @@ public class UserMapperTest {
 
     @Test
     void toUpdateDtoTest() {
-        User user = new User(1, "Ivan", "Ivanov", LocalDate.of(2023, 1, 1));
-        UpdateUserDto updateUserDto = userMapper.toUpdateDto(user);
+        User user = new User(1L, "Ivan", "Ivanov", java.time.LocalDate.now());
+        UpdateUserDto updateUserDto = mapper.toUpdateDto(user);
 
         assertEquals(user.getName(), updateUserDto.getName());
         assertEquals(user.getSurname(), updateUserDto.getSurname());

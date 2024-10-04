@@ -1,6 +1,10 @@
 package ru.users.userservice.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import ru.users.userservice.model.NewUserDto;
+import ru.users.userservice.model.UpdateUserDto;
+import ru.users.userservice.model.UserDto;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.users.userservice.controller.UserController;
-import ru.users.userservice.dto.NewUserDto;
-import ru.users.userservice.dto.UpdateUserDto;
-import ru.users.userservice.dto.UserDto;
 import ru.users.userservice.service.UserService;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
@@ -37,14 +37,28 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    private final UserDto userDto = new UserDto(1, "Ivan", "Ivanov",
-            LocalDate.of(2020, 1, 1));
+    private UserDto userDto;
+    private NewUserDto newUserDto;
+    private UpdateUserDto updateUserDto;
 
-    private final NewUserDto newUserDto = new NewUserDto("Ivan", "Ivanov",
-            LocalDate.of(2020, 1, 1));
+    @BeforeEach
+    void setUp() {
+        userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setName("Ivan");
+        userDto.setSurname("Ivanov");
+        userDto.setRegistrationDate(LocalDate.of(2020, 1, 1));
 
-    private final UpdateUserDto updateUserDto = new UpdateUserDto("Vlad", "ov",
-            LocalDate.of(2023, 1, 1));
+        newUserDto = new NewUserDto();
+        newUserDto.setName("Ivan");
+        newUserDto.setSurname("Ivanov");
+        newUserDto.setRegistrationDate(LocalDate.of(2020, 1, 1));
+
+        updateUserDto = new UpdateUserDto();
+        updateUserDto.setName("Vlad");
+        updateUserDto.setSurname("ov");
+        updateUserDto.setRegistrationDate(LocalDate.of(2023, 1, 1));
+    }
 
     @Test
     @SneakyThrows
@@ -56,7 +70,7 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsString(newUserDto)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(userDto.getId()), Integer.class))
+                .andExpect(jsonPath("$.id", is(userDto.getId()), Long.class))
                 .andExpect(jsonPath("$.name", is(userDto.getName())))
                 .andExpect(jsonPath("$.surname", is(userDto.getSurname())))
                 .andExpect(jsonPath("$.registration_date", is(userDto.getRegistrationDate().toString())));
@@ -65,7 +79,7 @@ public class UserControllerTest {
     @Test
     @SneakyThrows
     void updateUserTest() {
-        when(userService.update(any(Integer.class), any(UpdateUserDto.class))).thenReturn(updateUserDto);
+        when(userService.update(any(Long.class), any(UpdateUserDto.class))).thenReturn(updateUserDto);
 
         mockMvc.perform(patch("/users/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -87,7 +101,7 @@ public class UserControllerTest {
     @SneakyThrows
     @Test
     void getByIdTest() {
-        when(userService.getById(any(Integer.class))).thenReturn(userDto);
+        when(userService.getById(any(Long.class))).thenReturn(userDto);
 
         mockMvc.perform(get("/users/1")
                         .characterEncoding(StandardCharsets.UTF_8)
@@ -95,7 +109,7 @@ public class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(userDto.getId()), Integer.class))
+                .andExpect(jsonPath("$.id", is(userDto.getId()), Long.class))
                 .andExpect(jsonPath("$.name", is(userDto.getName())))
                 .andExpect(jsonPath("$.surname", is(userDto.getSurname())))
                 .andExpect(jsonPath("$.registration_date", is(userDto.getRegistrationDate().toString())));
@@ -117,7 +131,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()", is(1)))
-                .andExpect(jsonPath("$.[0].id", is(userDto.getId()), Integer.class))
+                .andExpect(jsonPath("$.[0].id", is(userDto.getId()), Long.class))
                 .andExpect(jsonPath("$.[0].name", is(userDto.getName())))
                 .andExpect(jsonPath("$.[0].surname", is(userDto.getSurname())))
                 .andExpect(jsonPath("$.[0].registration_date", is(userDto.getRegistrationDate().toString())));

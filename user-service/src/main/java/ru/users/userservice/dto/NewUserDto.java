@@ -10,8 +10,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @EqualsAndHashCode
 public class NewUserDto {

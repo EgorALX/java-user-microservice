@@ -1,15 +1,15 @@
 package ru.users.userservice.service;
 
-import ru.users.userservice.dto.NewUserDto;
-import ru.users.userservice.dto.UpdateUserDto;
-import ru.users.userservice.dto.UserDto;
 import ru.users.userservice.controller.exception.model.NotFoundException;
+import ru.users.userservice.model.UserDto;
 import ru.users.userservice.mapper.UserMapper;
 import ru.users.userservice.model.User;
 import ru.users.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.users.userservice.model.NewUserDto;
+import ru.users.userservice.model.UpdateUserDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getById(Integer userId) {
+    public UserDto getById(Long userId) {
         return userMapper.toUserDto(userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User " + userId + " not found.")));
     }
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UpdateUserDto update(Integer userId, UpdateUserDto dto) {
+    public UpdateUserDto update(Long userId, UpdateUserDto dto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
         Optional.ofNullable(dto.getName()).ifPresent(user::setName);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean removeById(Integer userId) {
+    public Boolean removeById(Long userId) {
         try {
             userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
             userRepository.deleteById(userId);

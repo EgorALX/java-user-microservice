@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User AS u WHERE " +
             "(LOWER(u.name) = LOWER(:name) OR :name IS NULL) AND " +

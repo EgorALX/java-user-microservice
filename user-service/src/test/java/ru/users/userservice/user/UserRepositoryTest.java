@@ -23,11 +23,11 @@ public class UserRepositoryTest {
     @Test
     public void getUsersByParamsTest() {
 
-        User firstUser = new User(1, "Ivan", "Ivanov",
+        User firstUser = new User(1L, "Ivan", "Ivanov",
                 LocalDate.of(2023, 1, 1));
-        User secondUser = new User(2, "Ivan2", "Ivanov2",
+        User secondUser = new User(2L, "Ivan2", "Ivanov2",
                 LocalDate.of(2020, 1, 1));
-        User thirdUser = new User(3, "Ivan3", "Ivanov3",
+        User thirdUser = new User(3L, "Ivan3", "Ivanov3",
                 LocalDate.of(2024, 1, 1));
 
         userRepository.saveAll(List.of(firstUser, secondUser, thirdUser));
