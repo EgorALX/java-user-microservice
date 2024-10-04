@@ -1,6 +1,7 @@
 package ru.users.userservice.controller;
 
 import jakarta.validation.ValidationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.users.userservice.controller.exception.model.errorMessage;
 import ru.users.userservice.controller.exception.model.NotFoundException;
@@ -13,6 +14,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class DefaultExceptionHandler {
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public errorMessage handleDataIntegrityViolationException(final DataIntegrityViolationException exception) {
+        log.info("Data is not valid {}", exception.getMessage());
+        return new errorMessage(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
